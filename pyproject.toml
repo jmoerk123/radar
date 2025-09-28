@@ -1,0 +1,90 @@
+[project]
+name = "radar"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "cartopy>=0.25.0",
+    "ccrs>=1.0.0",
+    "h5py>=3.14.0",
+    "numpy>=2.3.3",
+    "pandas",
+    "pyyaml>=6.0.2",
+    "requests>=2.32.5",
+    "scipy>=1.16.1",
+    "xarray>=2025.9.0",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+vis = [
+    "ipympl>=0.9.4",
+    "matplotlib>=3.9.2",
+    "nbformat>=5.10.4",
+    "plotly>=5.24.1",
+    "kaleido>=0.2.1, != 0.2.1.post1, <0.4" # Broken in v.0.4.1
+]
+notebook = [
+    "ipykernel>=6.29.5",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest~=8.3",
+    # Ruff CI version is in .gitlab-ci.yml
+    "ruff==0.6.3",
+    "mypy>=1.11.2",
+]
+
+# [tool.uv.sources]
+# netra-fm-trading-core = { path = "../netra-fm-trading-core", editable = true }
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/radar"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "src"
+explicit_package_bases = true
+packages = ["radar"]
+
+[[tool.mypy.overrides]]
+module = [
+    "pandas.*"
+]
+ignore_missing_imports = true
+
+[tool.ruff]
+target-version = "py312"
+exclude = []
+
+[tool.ruff.lint]
+extend-select = [
+    "I",
+    "UP",
+    "B",
+    "DTZ",
+    "SIM",
+    "PTH",
+    "PLW",
+    "PLE",
+    "FLY",
+    "FURB",
+    "PGH",
+    "N",
+    "ANN",
+    "RUF",
+]
+extend-ignore = [
+    # self / cls do not need annotation
+    "ANN101",
+    "ANN102",
+    "ANN401",  # disable any type ban
+]
