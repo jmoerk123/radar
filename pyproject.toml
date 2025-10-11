@@ -1,5 +1,5 @@
 [project]
-name = "radar"
+name = "radar_forcast"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -7,11 +7,14 @@ dependencies = [
     "cartopy>=0.25.0",
     "ccrs>=1.0.0",
     "h5py>=3.14.0",
+    "lightning>=2.5.5",
     "numpy>=2.3.3",
     "pandas",
     "pyyaml>=6.0.2",
     "requests>=2.32.5",
     "scipy>=1.16.1",
+    "torch>=2.8.0",
+    "torch-geometric>=2.6.1",
     "xarray>=2025.9.0",
 ]
 dynamic = ["version"]
@@ -28,8 +31,7 @@ notebook = [
     "ipykernel>=6.29.5",
 ]
 
-[tool.uv]
-dev-dependencies = [
+dev = [
     "pytest~=8.3",
     # Ruff CI version is in .gitlab-ci.yml
     "ruff==0.6.3",
@@ -47,13 +49,13 @@ build-backend = "hatchling.build"
 source = "vcs"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/radar"]
+packages = ["src/radar_forcast"]
 
 [tool.mypy]
 python_version = "3.12"
 mypy_path = "src"
 explicit_package_bases = true
-packages = ["radar"]
+packages = ["radar_forcast"]
 
 [[tool.mypy.overrides]]
 module = [
